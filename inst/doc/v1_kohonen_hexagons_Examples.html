@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="author" content="Vilmantas Gegzna" />
+
+<meta name="date" content="2016-05-11" />
+
+<title>Examples from package kohonen.hexagons</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+
+
+<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Examples from package <code>kohonen.hexagons</code></h1>
+<h4 class="author"><em>Vilmantas Gegzna</em></h4>
+<h4 class="date"><em>2016-05-11</em></h4>
+
+
+<div id="TOC">
+<ul>
+<li><a href="#functions"><span class="toc-section-number">1</span> Functions</a><ul>
+<li><a href="#functions-hexagonmap-and-hexagonpt"><span class="toc-section-number">1.1</span> Functions <code>hexagonMap</code> and <code>hexagonPT</code></a></li>
+<li><a href="#function-hexagonpt_verticles"><span class="toc-section-number">1.2</span> Function <code>hexagonPT_verticles</code></a><ul>
+<li><a href="#names-and-positions-of-polygon-verticles"><span class="toc-section-number">1.2.1</span> Names and positions of polygon verticles</a></li>
+</ul></li>
+<li><a href="#function-hex_neighbourhood_line_pos"><span class="toc-section-number">1.3</span> Function <code>hex_neighbourhood_line_pos</code></a></li>
+<li><a href="#function-hex_neighbour_dist"><span class="toc-section-number">1.4</span> Function <code>hex_neighbour_dist</code></a></li>
+<li><a href="#function-hexagon_default_params"><span class="toc-section-number">1.5</span> Function <code>hexagon_default_params</code></a></li>
+</ul></li>
+<li><a href="#default-info-do-not-read"><span class="toc-section-number">2</span> Default info (DO NOT READ)</a><ul>
+<li><a href="#vignette-info"><span class="toc-section-number">2.1</span> Vignette Info</a></li>
+<li><a href="#styles"><span class="toc-section-number">2.2</span> Styles</a></li>
+<li><a href="#figures"><span class="toc-section-number">2.3</span> Figures</a></li>
+<li><a href="#more-examples"><span class="toc-section-number">2.4</span> More Examples</a></li>
+</ul></li>
+</ul>
+</div>
+
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(kohonen.hexagons)
+<span class="kw">library</span>(kohonen)
+<span class="kw">library</span>(pander)</code></pre></div>
+<div id="functions" class="section level1">
+<h1><span class="header-section-number">1</span> Functions</h1>
+<div id="functions-hexagonmap-and-hexagonpt" class="section level2">
+<h2><span class="header-section-number">1.1</span> Functions <code>hexagonMap</code> and <code>hexagonPT</code></h2>
+<p>Plot single hexagon.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot.new</span>()
+<span class="kw">hexagonPT</span>(.<span class="dv">5</span>,.<span class="dv">5</span>, <span class="dt">r =</span> .<span class="dv">3</span>)</code></pre></div>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASAAAAEgCAMAAAAjXV6yAAAABlBMVEUAAAD///+l2Z/dAAAACXBIWXMAAA7DAAAOwwHHb6hkAAADUUlEQVR4nO3cS1LjQBBAQXz/S0/AYv7wbCyVaph8B6hWJ2ovCEkvN33Yy9UXsD1AEaAIUAQoAhQBigBFgCJAEaAIUAQoAhQBigBFgCJAEaAIUAQoAhQBigBFgCJAEaAIUAQoAhQBigBFgCJAEaAIUAQoAhQBigBFgCJAEaAIUAQoAhQBigBFgCJAEaAIUAQoAhQBigBFgCJAEaAIUAQoAhQBigBFgCJAEaAIUAQoAhQBigBFgCJAEaAIUAQoAhQBigBFgCJAEaAIUAQoAhQBigBFgCJAEaAIUAQoAhQBigBFgKJ/AOjl5cqLXA/0pnMh0XKg7zKXEW0G+vVsXXTS9gL9xeMKoq1A71jME60E+ug0TZ+0hUApMEq0Duiu3Q8S7QK6//yMnbRNQA/ueYZoDdBnbomJ22gJ0Kd3ejrRCqCndnky0fVAz5+TU0/a1UAH7e08omuBDtzXWUQXAh19Ms45aZcBnbOb44deBHTab8bhg6/5J9SZqx59cA+dtmJRQKPTAY1OW7EooNHpgEanrVgU0Oh0QKPTViwKaHQ6oNFpKxYFNDod0Oi0FYsCGp0OaHTaikUBjU4HNDptxaKARqcDGp22YlFAo9MBjU5bsSig0emARqfdu6jHX3JZD1Dlwh7By6UP/2N/qYc43xY/9DHgc7biQfKafNbg+6/g+Uv4yq8ivPbk/s59m2UD0DM/IKe/MrYD6PbJ++D/eaHutYd3O/JO5iKgB3c89FbvKqAHdj32YvgyoPt+dSe/vrAO6JZ3x+y3KTYCfWgw/XmTnUDvOvj6y4/+/KG55BNLe4Fuv90vF32kazXQTyq+YfZevoKX+Y7i6gBFgCJAEaAIUAQoAhQBigBFgCJAEaAIUAQoAhQBigBFgCJAEaAIUAQoAhQBigBFgCJAEaAIUAQoAhQBigBFgCJAEaAIUAQoAhQBigBFgCJAEaAIUAQoAhQBigBFgCJAEaAIUAQoAhQBigBFgCJAEaAIUAQoAhQBigBFgCJAEaAIUAQoAhQBigBFgCJAEaAIUAQoAhQBigBFgCJAEaAIUAQoAhQBigBFgCJAEaAIUAQoAhQBigBFgCJAEaAIUAQoAhQBigBFgCJAEaAIUAQoAhQBigBFgCJAEaDoGwtUQxZajEYmAAAAAElFTkSuQmCC" style="display: block; margin: auto;" /></p>
+<p>Plot a map of hexagons.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"> data &lt;-<span class="st"> </span>class::<span class="kw">somgrid</span>(<span class="dv">8</span>,<span class="dv">6</span>,<span class="st">&quot;hexagonal&quot;</span>)$pts
+ <span class="kw">head</span>(data)</code></pre></div>
+<pre><code>#&gt;        x         y
+#&gt; [1,] 1.5 0.8660254
+#&gt; [2,] 2.5 0.8660254
+#&gt; [3,] 3.5 0.8660254
+#&gt; [4,] 4.5 0.8660254
+#&gt; [5,] 5.5 0.8660254
+#&gt; [6,] 6.5 0.8660254</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"> x &lt;-<span class="st"> </span>data[,<span class="st">&quot;x&quot;</span>]
+ y &lt;-<span class="st"> </span>data[,<span class="st">&quot;y&quot;</span>]
+
+ <span class="kw">hexagonMap</span>(x, y)</code></pre></div>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASAAAAEgCAMAAAAjXV6yAAAABlBMVEUAAAD///+l2Z/dAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAEW0lEQVR4nO3agY6bSBAA0fH//3SUrLWLDbi6Z7pZpFQp0uk6ZsK8PUzMeTzsY+O3T+DuCQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQR1Ah2sXTlaODJRH9AYf3+9/2mFo7E7+dgoVxvQ2C//tcea0de/varFRsmagL7PabN+6Wg/i43S9QBVbCW44dwoXwtQ0cVwNpq/SidqAKp7Oz0Zzb7PT1UPVHpD7v6bAicQJBAkECQQJBAkECQQJBAkEHTNR43a0eyR56f8oQag90XHv89P4w6j9E6agF4eNDxPa3N2laPH9ChYD9Dmyc3oGC0sFt7C7AG5hV9+ZM/HNHcYxWsDOnpyUzlaWixRH1D/PfqSG75AkECQQJBAkECQQJBAkECQQJBAUCvQ/lNQ3WhlMTzz7aszL0719dBqvExKR+8PxaKj5DZyL4+vO57/GD+TutHCYumNZA/ILlvpUjBa2ElhVRfD6Wj2Kp3Zy8QxtGTh22npCM/8qHqg7hvyJTf31aOyK95CQ6D8KJBAkECQQJBAkECQQJBA0FUfNSpHs0een/KHGoDeF91/5vy1UXonTUDbVQ+eNFSOHtOjYD1AP2eyfSZTN1pYLLyF2QNyCx887bzFKF4b0OPgoq8cLS2WqA+o/x59yQ1fIEggSCBIIEggSCBIIEggSCBIIKgVqPP/ta8shme+fXXmxanWvocRGPkFqvPRwmLpjWQPyC5b6VIwWthJYVUXw+lo9iqd2cvEMbRk4dtp6QjP/Kh6oO4b8iU399WjsiveQkOg/CiQQJBAkECQQJBAkECQQJBA0DWfxVq/xjD//YdIDUBvRA3fXZlfLLyFnwPzh+SW/T7N7dOZ3xuFd/B9aPqI4Lr7n3XtaDeLjlLb6AN6XvTjdVI3WlgsuY3cy3NrHz46u8Ho/JT3tQL1jq654QsECQQJBAkECQQJBAkECQQJBHUC9T7MWVksUSvQ28mMytHY/M7EKFwz0OYP2DydWR5VLBGsHWj5Z300KvmPMFY/UO1bT+nbWKQrgNrvZ/X3rtWj/qMEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEgv4Ar9I75F9o0MIAAAAASUVORK5CYII=" style="display: block; margin: auto;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Add color</span>
+ <span class="kw">hexagonMap</span>(x, y, <span class="dt">col =</span> <span class="st">&quot;yellow&quot;</span>)</code></pre></div>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASAAAAEgCAMAAAAjXV6yAAAACVBMVEUAAAD//wD///+tfaOSAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAE3ElEQVR4nO2d0W6bUBAFgf//6LbgJCxLPNzL3tiNZh6S5kgc747jWmCkTIs8ZXr1AO+OggAFAQoCFAQoCFAQoCBAQYCCAAUBCgIUBCgIUBCgIEBBgIIABQEKAhQEKAhQEKAgQEGAggAFAQoCFAQoCFAQoCBAQYCCAAUBCgIUBCgIUBCgIEBBgIIABQEKAhQEKAhQEKAgQEGAggAFAQoCFAQoCFAQoCBAQYCCAAUBCgIUBCgIUBCgIEBBgIIABQEKAhQEKAhQEKAgQEGAggAFAQoCFAQoCFAQoCBgpKCT7sroxpENjBM0TfN0bC+N/mZdURvDBE3zP0L9NNVFW3+0di1q3ePGsc9qNz9hq9IoZ9ei9k36D33WOn/y+fRNQ6K5LepYpfvIZ6XznvUhpqkuiv2btWtRzy73VJxWRj/rcKVRyi5GfdvUylmOvz6P4d4i6lunWI+CuDGPpqDQmEdTUGjMoykoNObRFBQa82gKCo15NAWFxjyagkJjHk1BsTKfHtRGvUf2bVNsZys9Djsf5n1V1LNLuZ21NU62fR8SzY1R+yoD9Cz7S1XTfPxXQXSjrHmTEXrW4vQsPn54edS4xxg9y+Oi/RyojO6UNa0xys9y+oZfGf3MG76CaIlhehTE3ZU75UhBECkIIgVBpCCIFASRgiBSEES/QFA+C6qL7pQ1LTHKznayejiRLo2OF8WuRo1rjLHzcUFoN9xUGN0oa15khJ1409NQVa1R+yYD7CyH3+nuF8O3Ue+rtGeXcjvnn2oM/O/6ctS3TbEdPxfjxjyagkJjHk1BoTGPpqDQmEdTUGjMoykoNObRFBQa82gKCo15NAWFxjyagmLl2alGZdR7ZN82xXa20uOwh3POl0U9u5TbWVvjZNv3IdHcGLWvMkDP4g1UV4rTs/j44eVR4x5j9CzeQHWle05URr/gY5/KnXKkIIgUBJGCIFIQRAqCSEEQKQgiBUGkIIh+gaCRn7XfKWtaYpQdb6CC3o/LHdNu2LLoRlnzIiPseAMVlRa9GL6Nel+lPbuU2/EGKmqcM4Pf8Ovf3HfrFOtREDfm0RQUGvNoCgqNeTQFhcY8moJCYx5NQaExj6ag0JhHU1BozKMpKDTm0RQUK/O52NDbGBqinm3K/SzpbP7ra010o6xjl3o9a+1xp/28r4zaNxlgZ+3Nz3VtlLKrUesiQ/SszUNvyrxR1rjGGDtb9+mlszeImpYYZWfxczHurtwpRwqCSEEQKQgiBUGkIIgUBJGCIFIQRP+/oHRl6ORPO3VHt8padhgl51G/H26qjB5Zb3R9g9sO6AHyZPejrxfJ7ppPW3R5/tYDmvm4JlMZhaw3ujh+8xHtnFwOfovoEj8h6PRR3iK6wM8I+o9REKAgQEGAggAFAQoCFAQoCFAQoCBAQYCCAAUBCgIUBCgIUBCgIEBBgIIABQEKAhQEKAhQEKAgQEGAggAFAQoCFAQoCFAQoCBAQYCCAAUBCgIUBCgIUBCgIEBBgIIABQEKAhQEKAhQEKAgQEGAggAFAQoCFAQoCFAQoCBAQYCCAAUBCgIUBCgIUBCgIEBBgIIABQEKAhQEKAhQEKAgQEGAggAFAQoCFAQoCFAQoCBAQYCCAAUBCgIUBCgIUBCgIEBBgIIABQEKAhQEKAhQEKAgQEGAgoA/RwJEL4nnPtkAAAAASUVORK5CYII=" style="display: block; margin: auto;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Add colors and text</span>
+ <span class="kw">hexagonMap</span>(x, y,
+      <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;tomato1&quot;</span>,<span class="st">&quot;skyblue&quot;</span>,<span class="st">&quot;orange&quot;</span>),
+      <span class="dt">border =</span> <span class="kw">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;black&quot;</span>))
+
+ <span class="kw">text</span>(x,y,<span class="dv">1</span>:<span class="kw">length</span>(x), <span class="dt">cex =</span> .<span class="dv">6</span>)
+ <span class="kw">title</span>(<span class="st">&quot;Hexagonal cells </span><span class="ch">\n</span><span class="st"> with cell ID number&quot;</span>)</code></pre></div>
+<p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
+</div>
+<div id="function-hexagonpt_verticles" class="section level2">
+<h2><span class="header-section-number">1.2</span> Function <code>hexagonPT_verticles</code></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hexagonPT_verticles</span>(<span class="dv">1</span>,<span class="dv">1</span>)</code></pre></div>
+<pre><code>#&gt;         A    B    C         D    E    F
+#&gt; x 1.00000 0.50 0.50 1.0000000 1.50 1.50
+#&gt; y 1.57735 1.25 0.75 0.4226497 0.75 1.25</code></pre>
+<div id="names-and-positions-of-polygon-verticles" class="section level3">
+<h3><span class="header-section-number">1.2.1</span> Names and positions of polygon verticles</h3>
+<p>A (top)<br />
+B (left upper)<br />
+C (left lower)<br />
+D (bottom)<br />
+E (right)<br />
+F (right upper).</p>
+<p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="function-hex_neighbourhood_line_pos" class="section level2">
+<h2><span class="header-section-number">1.3</span> Function <code>hex_neighbourhood_line_pos</code></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hex_neighbourhood_line_pos</span>(x, y)  %&gt;%<span class="st"> </span>head</code></pre></div>
+<pre><code>#&gt;   cell  x1        y1  x2        y2 x_center  y_center
+#&gt; 1    1 1.5 1.4433757 1.0 1.1160254     1.25 1.2797005
+#&gt; 2    1 1.0 1.1160254 1.0 0.6160254     1.00 0.8660254
+#&gt; 3    1 1.0 0.6160254 1.5 0.2886751     1.25 0.4523503
+#&gt; 4    1 1.5 0.2886751 2.0 0.6160254     1.75 0.4523503
+#&gt; 5    1 2.0 0.6160254 2.0 1.1160254     2.00 0.8660254
+#&gt; 6    1 2.0 1.1160254 1.5 1.4433757     1.75 1.2797005</code></pre>
+</div>
+<div id="function-hex_neighbour_dist" class="section level2">
+<h2><span class="header-section-number">1.4</span> Function <code>hex_neighbour_dist</code></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(kohonen)
+<span class="kw">data</span>(<span class="st">&quot;Spectra2&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spHelper&quot;</span>)
+
+som_model &lt;-<span class="st"> </span><span class="kw">som</span>(Spectra2$spc, <span class="dt">grid =</span> <span class="kw">somgrid</span>(<span class="dv">7</span>,<span class="dv">7</span>,<span class="st">&quot;hexagonal&quot;</span>))
+<span class="kw">hex_neighbour_dist</span>(som_model)  %&gt;%<span class="st"> </span>head</code></pre></div>
+<pre><code>#&gt;   Cell_ID1 Cell_ID2 Distance x1        y1 x2       y2 x_center  y_center
+#&gt; 1        1        2 238.8379  2 0.6160254  2 1.116025        2 0.8660254
+#&gt; 2        1        8 141.8330 NA        NA NA       NA       NA        NA
+#&gt; 3        1        9 207.3145 NA        NA NA       NA       NA        NA
+#&gt; 4        2        3 225.1792  3 0.6160254  3 1.116025        3 0.8660254
+#&gt; 5        2        9 198.9761 NA        NA NA       NA       NA        NA
+#&gt; 6        2       10 201.0638 NA        NA NA       NA       NA        NA</code></pre>
+</div>
+<div id="function-hexagon_default_params" class="section level2">
+<h2><span class="header-section-number">1.5</span> Function <code>hexagon_default_params</code></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hexagon_default_params</span>()      %&gt;%<span class="st"> </span>pander</code></pre></div>
+<ul>
+<li><strong>r</strong>: <em>0.5</em></li>
+<li><strong>l</strong>: <em>0.5774</em></li>
+</ul>
+<!-- end of list -->
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hexagon_default_params</span>(<span class="dt">r =</span> <span class="dv">1</span>) %&gt;%<span class="st"> </span>pander</code></pre></div>
+<ul>
+<li><strong>r</strong>: <em>1</em></li>
+<li><strong>l</strong>: <em>1.155</em></li>
+</ul>
+<!-- end of list -->
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hexagon_default_params</span>(<span class="dt">l =</span> <span class="dv">1</span>) %&gt;%<span class="st"> </span>pander</code></pre></div>
+<ul>
+<li><strong>r</strong>: <em>0.866</em></li>
+<li><strong>l</strong>: <em>1</em></li>
+</ul>
+<!-- end of list -->
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data &lt;-<span class="st"> </span>class::<span class="kw">somgrid</span>(<span class="dv">8</span>,<span class="dv">6</span>,<span class="st">&quot;hexagonal&quot;</span>)$pts
+<span class="kw">hexagon_default_params</span>(<span class="dt">x =</span> data[,<span class="st">&quot;x&quot;</span>], <span class="dt">y =</span> data[,<span class="st">&quot;y&quot;</span>]) %&gt;%<span class="st"> </span>pander</code></pre></div>
+<ul>
+<li><strong>r</strong>: <em>0.5</em></li>
+<li><strong>l</strong>: <em>0.5774</em></li>
+</ul>
+<!-- end of list -->
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hexagon_default_params</span>(<span class="dt">x =</span> data[,<span class="st">&quot;x&quot;</span>], <span class="dt">y =</span> data[,<span class="st">&quot;y&quot;</span>]*<span class="dv">2</span>) %&gt;%<span class="st"> </span>pander</code></pre></div>
+<ul>
+<li><strong>r</strong>: <em>0.5</em></li>
+<li><strong>l</strong>: <em>1.155</em></li>
+</ul>
+<!-- end of list -->
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hexagon_default_params</span>(<span class="dt">x =</span> data[,<span class="st">&quot;x&quot;</span>]*<span class="dv">2</span>, <span class="dt">y =</span> data[,<span class="st">&quot;y&quot;</span>]) %&gt;%<span class="st"> </span>pander</code></pre></div>
+<ul>
+<li><strong>r</strong>: <em>1</em></li>
+<li><strong>l</strong>: <em>0.5774</em></li>
+</ul>
+<!-- end of list -->
+</div>
+</div>
+<div id="default-info-do-not-read" class="section level1">
+<h1><span class="header-section-number">2</span> Default info (DO NOT READ)</h1>
+<p><font size="5" color="red"> Do not read further. Vignette is not completed yet. </font></p>
+<p>Vignettes are long form documentation commonly included in packages. Because they are part of the distribution of the package, they need to be as compact as possible. The <code>html_vignette</code> output type provides a custom style sheet (and tweaks some options) to ensure that the resulting html is as small as possible. The <code>html_vignette</code> format:</p>
+<ul>
+<li>Never uses retina figures</li>
+<li>Has a smaller default figure size</li>
+<li>Uses a custom CSS stylesheet instead of the default Twitter Bootstrap style</li>
+</ul>
+<div id="vignette-info" class="section level2">
+<h2><span class="header-section-number">2.1</span> Vignette Info</h2>
+<p>Note the various macros within the <code>vignette</code> section of the metadata block above. These are required in order to instruct R how to build the vignette. Note that you should change the <code>title</code> field and the <code>\VignetteIndexEntry</code> to match the title of your vignette.</p>
+</div>
+<div id="styles" class="section level2">
+<h2><span class="header-section-number">2.2</span> Styles</h2>
+<p>The <code>html_vignette</code> template includes a basic CSS theme. To override this theme you can specify your own CSS in the document metadata as follows:</p>
+<pre><code>output: 
+  rmarkdown::html_vignette:
+    css: mystyles.css</code></pre>
+</div>
+<div id="figures" class="section level2">
+<h2><span class="header-section-number">2.3</span> Figures</h2>
+<p>The figure sizes have been customised so that you can easily put two images side-by-side.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="dv">1</span>:<span class="dv">10</span>)
+<span class="kw">plot</span>(<span class="dv">10</span>:<span class="dv">1</span>)</code></pre></div>
+<p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
+<p>You can enable figure captions by <code>fig_caption: yes</code> in YAML:</p>
+<pre><code>output:
+  rmarkdown::html_vignette:
+    fig_caption: yes</code></pre>
+<p>Then you can use the chunk option <code>fig.cap = &quot;Your figure caption.&quot;</code> in <strong>knitr</strong>.</p>
+</div>
+<div id="more-examples" class="section level2">
+<h2><span class="header-section-number">2.4</span> More Examples</h2>
+<p>You can write math expressions, e.g. <span class="math inline">\(Y = X\beta + \epsilon\)</span>, footnotes<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>, and tables, e.g. using <code>knitr::kable()</code>.</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th align="right">mpg</th>
+<th align="right">cyl</th>
+<th align="right">disp</th>
+<th align="right">hp</th>
+<th align="right">drat</th>
+<th align="right">wt</th>
+<th align="right">qsec</th>
+<th align="right">vs</th>
+<th align="right">am</th>
+<th align="right">gear</th>
+<th align="right">carb</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Mazda RX4</td>
+<td align="right">21.0</td>
+<td align="right">6</td>
+<td align="right">160.0</td>
+<td align="right">110</td>
+<td align="right">3.90</td>
+<td align="right">2.620</td>
+<td align="right">16.46</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td>Mazda RX4 Wag</td>
+<td align="right">21.0</td>
+<td align="right">6</td>
+<td align="right">160.0</td>
+<td align="right">110</td>
+<td align="right">3.90</td>
+<td align="right">2.875</td>
+<td align="right">17.02</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td>Datsun 710</td>
+<td align="right">22.8</td>
+<td align="right">4</td>
+<td align="right">108.0</td>
+<td align="right">93</td>
+<td align="right">3.85</td>
+<td align="right">2.320</td>
+<td align="right">18.61</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td>Hornet 4 Drive</td>
+<td align="right">21.4</td>
+<td align="right">6</td>
+<td align="right">258.0</td>
+<td align="right">110</td>
+<td align="right">3.08</td>
+<td align="right">3.215</td>
+<td align="right">19.44</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td>Hornet Sportabout</td>
+<td align="right">18.7</td>
+<td align="right">8</td>
+<td align="right">360.0</td>
+<td align="right">175</td>
+<td align="right">3.15</td>
+<td align="right">3.440</td>
+<td align="right">17.02</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td>Valiant</td>
+<td align="right">18.1</td>
+<td align="right">6</td>
+<td align="right">225.0</td>
+<td align="right">105</td>
+<td align="right">2.76</td>
+<td align="right">3.460</td>
+<td align="right">20.22</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td>Duster 360</td>
+<td align="right">14.3</td>
+<td align="right">8</td>
+<td align="right">360.0</td>
+<td align="right">245</td>
+<td align="right">3.21</td>
+<td align="right">3.570</td>
+<td align="right">15.84</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td>Merc 240D</td>
+<td align="right">24.4</td>
+<td align="right">4</td>
+<td align="right">146.7</td>
+<td align="right">62</td>
+<td align="right">3.69</td>
+<td align="right">3.190</td>
+<td align="right">20.00</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">4</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td>Merc 230</td>
+<td align="right">22.8</td>
+<td align="right">4</td>
+<td align="right">140.8</td>
+<td align="right">95</td>
+<td align="right">3.92</td>
+<td align="right">3.150</td>
+<td align="right">22.90</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">4</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td>Merc 280</td>
+<td align="right">19.2</td>
+<td align="right">6</td>
+<td align="right">167.6</td>
+<td align="right">123</td>
+<td align="right">3.92</td>
+<td align="right">3.440</td>
+<td align="right">18.30</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">4</td>
+<td align="right">4</td>
+</tr>
+</tbody>
+</table>
+<p>Also a quote using <code>&gt;</code>:</p>
+<blockquote>
+<p>“He who gives up [code] safety for [code] speed deserves neither.” (<a href="https://twitter.com/hadleywickham/status/504368538874703872">via</a>)</p>
+</blockquote>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>A footnote here.<a href="#fnref1">↩</a></p></li>
+</ol>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

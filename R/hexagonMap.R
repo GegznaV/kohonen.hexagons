@@ -1,15 +1,13 @@
 #' Plot a pointy toped hexagon and a map of hexagons
 #'
-#'
-#' @details
-#' Relation between parameters \code{l} and \code{r}: \cr
-#' \code{l = r / cos(pi/6)} \cr
-#' \code{r = l * cos(pi/6)} \cr
+#' \code{hexagonPT} plots a pointy topped hexagon. \cr
+#' \code{hexagonMap} plots a map of hexagons.
 #'
 #'
 #' @param x,y hexagon center coordinates.
-#' @param r radius of inscribed circle.
+#' @param r radius of circle inscribed in hexagon. Default value is 0.5.
 #' @param l distance from the center to the upper/lower vertices of hexagon.
+#'
 #' @inheritParams  graphics::polygon
 #'
 #' @return Ploted hexagon
@@ -37,19 +35,22 @@
 #'
 #'
 #' #====================================================================
-#' hexagonPT(1,1)
+#' plot.new()
+#' hexagonPT(.5,.5, r = .25)
 #'
 #' #====================================================================
 #'
-#' @family SOM and hexagon related functions in \pkg{spHelper}
 #' @author Vilmantas Gegzna
 #'
 hexagonMap <- function(x, y,  col = NA, border="black",
                             r = NULL, l = NULL,
                             add = FALSE, ...) {
 
-    if (is.null(r)) r <- x %>% diff  %>% abs  %>% min/2         # 0.5
-    if (is.null(l)) l <- y %>% diff  %>% abs  %>% max() - r/sqrt(3)   # 0.616
+    # Get/Adjust parameter values
+    params <- hexagon_default_params(r,l,x,y)
+    r <- params$r
+    l <- params$l
+
 
     # Initialize a new plot
     if (add == FALSE) {

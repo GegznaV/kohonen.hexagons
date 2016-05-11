@@ -1,6 +1,7 @@
 ---
-title: "kohonen.hexagon"
-output: github_document
+output:
+  md_document:
+    variant: markdown_github
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -38,7 +39,7 @@ About Documentation
 Meaning of symbols in function descriptions:
 
 - [+] Well documented function.
-- [!], [!!!] Documentation needs attention.
+- [!], [!!!] Documentation needs attention and revision.
 - [!+] Updated function, which was well-documented (some parts may be poor or not documented).
 - [.] function may be removed, renamed or changed.
 

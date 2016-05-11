@@ -11,7 +11,7 @@ hex_neighbourhood_line_pos(x, y, r = NULL, l = NULL, ...)
 
 \item{y}{hexagon center coordinates.}
 
-\item{r}{radius of inscribed circle.}
+\item{r}{radius of circle inscribed in hexagon. Default value is 0.5.}
 
 \item{l}{distance from the center to the upper/lower vertices of hexagon.}
 
@@ -47,7 +47,6 @@ Vilmantas Gegzna
 }
 \seealso{
 Other SOM.and.hexagon.related.functions.in..pkg.spHelper.: \code{\link{hex_neighbour_dist}},
-  \code{\link{hexagonPT_verticles}},
-  \code{\link{hexagonPT}}
+  \code{\link{hexagonPT_verticles}}
 }
 

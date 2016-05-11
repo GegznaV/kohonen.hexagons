@@ -16,6 +16,7 @@
 #'
 #' @examples
 #' library(kohonen)
+#' data("Spectra2", package = "spHelper")
 #'
 #' som_model <- som(Spectra2$spc, grid = somgrid(7,7,"hexagonal"))
 #' hex_neighbour_dist(som_model)  %>% head

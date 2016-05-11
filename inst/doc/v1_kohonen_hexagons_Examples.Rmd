@@ -1,0 +1,184 @@
+---
+title: "Examples from package `kohonen.hexagons`"
+author: "Vilmantas Gegzna"
+date: "`r Sys.Date()`"
+output:
+    rmarkdown::html_vignette: 
+        toc: yes
+        number_sections: yes
+vignette: >
+  %\VignetteIndexEntry{Examples}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r Load packages, message=FALSE,warning=FALSE}
+library(kohonen.hexagons)
+library(kohonen)
+library(pander)
+```
+```{r options1, echo = FALSE, message = FALSE, warning = FALSE}
+optDEF <- knitr::opts_chunk$get()
+knitr::opts_chunk$set(comment = "#>",
+                      fig.align = 'center')
+op <- par(mar=c(1,1,1,1))
+```
+
+
+
+Functions
+=========
+
+
+Functions `hexagonMap` and `hexagonPT`
+--------------------------------------
+
+
+Plot single hexagon.
+
+```{r}
+plot.new()
+hexagonPT(.5,.5, r = .3)
+```
+
+Plot a map of hexagons.
+
+```{r}
+ data <- class::somgrid(8,6,"hexagonal")$pts
+ head(data)
+ x <- data[,"x"]
+ y <- data[,"y"]
+
+ hexagonMap(x, y)
+
+# Add color
+ hexagonMap(x, y, col = "yellow")
+
+# Add colors and text
+ hexagonMap(x, y,
+      col = c("tomato1","skyblue","orange"),
+      border = c("red", "black"))
+
+ text(x,y,1:length(x), cex = .6)
+ title("Hexagonal cells \n with cell ID number")
+
+```
+
+Function `hexagonPT_verticles`
+--------------------------------
+
+```{r hexagonPT_verticles,  fig.show='hold'}
+hexagonPT_verticles(1,1)
+```
+
+### Names and positions of polygon verticles
+
+A (top)  
+B (left upper)  
+C (left lower)  
+D (bottom)  
+E (right)  
+F (right upper).
+
+```{r hexagonPT_verticles 2, echo = FALSE}
+verticles <- hexagonPT_verticles(1,1)  %>% t
+
+plot(verticles, type = "n", main = "Names of polygon verticles")  # initialize a plot
+polygon(verticles, border = "grey")
+text(verticles,labels = LETTERS[1:6], col = "blue")
+
+```
+
+Function `hex_neighbourhood_line_pos`
+----------------------------------
+```{r hex_neighbourhood_line_pos}
+hex_neighbourhood_line_pos(x, y)  %>% head
+```
+
+
+
+Function `hex_neighbour_dist`
+----------------------------------
+
+```{r}
+library(kohonen)
+data("Spectra2", package = "spHelper")
+
+som_model <- som(Spectra2$spc, grid = somgrid(7,7,"hexagonal"))
+hex_neighbour_dist(som_model)  %>% head
+```
+
+Function `hexagon_default_params`
+----------------------------------
+
+```{r hexagon_default_params}
+hexagon_default_params()      %>% pander
+
+hexagon_default_params(r = 1) %>% pander
+
+hexagon_default_params(l = 1) %>% pander
+
+data <- class::somgrid(8,6,"hexagonal")$pts
+hexagon_default_params(x = data[,"x"], y = data[,"y"]) %>% pander
+
+hexagon_default_params(x = data[,"x"], y = data[,"y"]*2) %>% pander
+
+hexagon_default_params(x = data[,"x"]*2, y = data[,"y"]) %>% pander
+```
+
+
+
+Default info (DO NOT READ)
+============================
+
+<font size=5 color="red"> Do not read further. Vignette is not completed yet. </font>
+
+
+
+Vignettes are long form documentation commonly included in packages. Because they are part of the distribution of the package, they need to be as compact as possible. The `html_vignette` output type provides a custom style sheet (and tweaks some options) to ensure that the resulting html is as small as possible. The `html_vignette` format:
+
+- Never uses retina figures
+- Has a smaller default figure size
+- Uses a custom CSS stylesheet instead of the default Twitter Bootstrap style
+
+## Vignette Info
+
+Note the various macros within the `vignette` section of the metadata block above. These are required in order to instruct R how to build the vignette. Note that you should change the `title` field and the `\VignetteIndexEntry` to match the title of your vignette.
+
+## Styles
+
+The `html_vignette` template includes a basic CSS theme. To override this theme you can specify your own CSS in the document metadata as follows:
+
+    output: 
+      rmarkdown::html_vignette:
+        css: mystyles.css
+
+## Figures
+
+The figure sizes have been customised so that you can easily put two images side-by-side. 
+
+```{r, fig.show='hold'}
+plot(1:10)
+plot(10:1)
+```
+
+You can enable figure captions by `fig_caption: yes` in YAML:
+
+    output:
+      rmarkdown::html_vignette:
+        fig_caption: yes
+
+Then you can use the chunk option `fig.cap = "Your figure caption."` in **knitr**.
+
+## More Examples
+
+You can write math expressions, e.g. $Y = X\beta + \epsilon$, footnotes^[A footnote here.], and tables, e.g. using `knitr::kable()`.
+
+```{r, echo=FALSE, results='asis'}
+knitr::kable(head(mtcars, 10))
+```
+
+Also a quote using `>`:
+
+> "He who gives up [code] safety for [code] speed deserves neither."
+([via](https://twitter.com/hadleywickham/status/504368538874703872))

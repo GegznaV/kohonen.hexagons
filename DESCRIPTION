@@ -1,7 +1,7 @@
 Package: kohonen.hexagons
 Title: Hexagon plots for Kohonen self organizing maps (SOM)
 Description: Various functions to plot hexagons
-Version: 0.1.001
+Version: 0.1.002
 Date: 2016-05-11
 Authors@R: person("Vilmantas", "Gegzna", email = "GegznaV@gmail.com", role = c("aut", "cre"))
 Maintainer: Vilmantas Gegzna <GegeznaV@gmail.com>
@@ -14,7 +14,8 @@ VignetteBuilder: knitr
 Depends:
 	R (>= 3.2.5),
 	magrittr,
-	spHelper
+	spHelper,
+	kohonen
 Imports:
     reshape2,
     pander,
@@ -23,6 +24,7 @@ Imports:
     MASS,
     devtools,
     RColorBrewer,
+    class
 Suggests:
     knitr,
     rmarkdown

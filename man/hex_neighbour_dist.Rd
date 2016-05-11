@@ -30,6 +30,7 @@ Data frame with distances between neighbour cells. Data frame has
 }
 \examples{
 library(kohonen)
+data("Spectra2", package = "spHelper")
 
 som_model <- som(Spectra2$spc, grid = somgrid(7,7,"hexagonal"))
 hex_neighbour_dist(som_model)  \%>\% head
@@ -41,7 +42,6 @@ Vilmantas Gegzna
 }
 \seealso{
 Other SOM.and.hexagon.related.functions.in..pkg.spHelper.: \code{\link{hex_neighbourhood_line_pos}},
-  \code{\link{hexagonPT_verticles}},
-  \code{\link{hexagonPT}}
+  \code{\link{hexagonPT_verticles}}
 }
 

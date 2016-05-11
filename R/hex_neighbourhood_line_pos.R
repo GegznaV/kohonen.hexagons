@@ -30,17 +30,11 @@
 #'
 hex_neighbourhood_line_pos <- function(x, y, r = NULL, l = NULL, ...) {
 
-    if (is.null(r)) r <- x %>% diff  %>% abs  %>% min/2         # 0.5
-    if (is.null(l)) l <- y %>% diff  %>% abs  %>% max() - r/2   # 0.616
+    # Get/Adjust parameter values
+    params <- hexagon_default_params(r,l,x,y)
+    r <- params$r
+    l <- params$l
 
-
-    # if (add == FALSE) {
-    #     xlim <- range(x) + c(-1, +1) * r
-    #     ylim <- range(y) + c(-1, +1) * l
-    #
-    #     MASS::eqscplot(xlim, ylim, axes = FALSE,
-    #                    type = "n", xlab = "", ylab = "")
-    # }
 
     n <- length(x)
 
@@ -74,6 +68,17 @@ hex_neighbourhood_line_pos <- function(x, y, r = NULL, l = NULL, ...) {
 
     return(df)
 }
+# if (is.null(r)) r <- x %>% diff  %>% abs  %>% min/2         # 0.5
+#  if (is.null(l)) l <- y %>% diff  %>% abs  %>% max() - r/2   # 0.616
+#
+#
+#  # if (add == FALSE) {
+#  #     xlim <- range(x) + c(-1, +1) * r
+#  #     ylim <- range(y) + c(-1, +1) * l
+#  #
+#  #     MASS::eqscplot(xlim, ylim, axes = FALSE,
+#  #                    type = "n", xlab = "", ylab = "")
+#  # }
 
 
 
