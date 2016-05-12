@@ -33,11 +33,14 @@ hexagonPT(x, y, col = NA, border = "black", r = 0.5, l = r/cos(pi/6),
 
 \item{l}{distance from the center to the upper/lower vertices of hexagon.}
 
+\item{add}{logical. If \code{FALSE}, a new plot is drawn.
+If \code{TRUE}, plot is drawn on a current graph.}
+
 \item{...}{graphical parameters such as \code{xpd}, \code{lend},
     \code{ljoin} and \code{lmitre} can be given as arguments.}
 }
 \value{
-Ploted hexagon
+Plotted hexagon
 }
 \description{
 \code{hexagonPT} plots a pointy topped hexagon. \cr

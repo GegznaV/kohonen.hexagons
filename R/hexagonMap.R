@@ -7,10 +7,12 @@
 #' @param x,y hexagon center coordinates.
 #' @param r radius of circle inscribed in hexagon. Default value is 0.5.
 #' @param l distance from the center to the upper/lower vertices of hexagon.
+#' @param add logical. If \code{FALSE}, a new plot is drawn.
+#'                     If \code{TRUE}, plot is drawn on a current graph.
 #'
 #' @inheritParams  graphics::polygon
 #'
-#' @return Ploted hexagon
+#' @return Plotted hexagon
 #' @export
 #'
 #' @examples
@@ -51,6 +53,13 @@ hexagonMap <- function(x, y,  col = NA, border="black",
     r <- params$r
     l <- params$l
 
+    x <- as.vector(x)
+    y <- as.vector(y)
+
+    n <- length(x) # Number of cells
+
+    col    <- rep_len(col, n)
+    border <- rep_len(border, n)
 
     # Initialize a new plot
     if (add == FALSE) {
@@ -61,18 +70,13 @@ hexagonMap <- function(x, y,  col = NA, border="black",
                        type = "n", xlab = "", ylab = "")
     }
 
-    n <- length(x) # Number of cells
-
-    x <- as.vector(x)
-    y <- as.vector(y)
-
-    col    <- rep_len(col, n)
-    border <- rep_len(border, n)
-
+    # Plot Hexagons
     for (i in 1:n) {
         hexagonPT(x[i], y[i],
-                  col = col[i], border = border[i],
-                  r = r, l = l)
+                  col = col[i],
+                  border = border[i],
+                  r = r,
+                  l = l)
     }
 }
 

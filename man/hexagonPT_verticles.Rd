@@ -22,13 +22,16 @@ Data frame with coordinates x and y (rows) of 6 verticles as
             E (right) lower and F (right upper).
 }
 \description{
-Calculate coordinates of each pointy top (PT) hexagon verticle (A, B, C, D, E, F) in respect to center coordinates O(x,y).
+Calculate coordinates of each pointy top (PT) hexagon verticle
+(A, B, C, D, E, F) in respect to center coordinates O(x,y).
 }
 \examples{
 
 hexagonPT_verticles(1,1)
 
 hexagonPT_verticles(1,1, r = 1)
+
+hexagonPT_verticles(1,1, l = 1)
 
 }
 \author{

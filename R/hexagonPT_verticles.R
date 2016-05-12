@@ -1,6 +1,7 @@
 #' [!] Calculate coordinates of pointy top (PT) hexagon verticles
 #'
-#' Calculate coordinates of each pointy top (PT) hexagon verticle (A, B, C, D, E, F) in respect to center coordinates O(x,y).
+#' Calculate coordinates of each pointy top (PT) hexagon verticle
+#' (A, B, C, D, E, F) in respect to center coordinates O(x,y).
 #'
 #' @inheritParams hexagonPT
 #'
@@ -16,6 +17,8 @@
 #'
 #' hexagonPT_verticles(1,1, r = 1)
 #'
+#' hexagonPT_verticles(1,1, l = 1)
+#'
 #' @family SOM and hexagon related functions in \pkg{spHelper}
 #' @author Vilmantas Gegzna
 #'
@@ -28,11 +31,11 @@ hexagonPT_verticles <- function(x, y, r = NULL, l = NULL){
 
     # Define verticles
     A <- c(x,     y + l)
-    B <- c(x - r, y + r/2)
-    C <- c(x - r, y - r/2)
+    B <- c(x - r, y + l/2)
+    C <- c(x - r, y - l/2)
     D <- c(x,     y - l)
-    E <- c(x + r, y - r/2)
-    F <- c(x + r, y + r/2)
+    E <- c(x + r, y - l/2)
+    F <- c(x + r, y + l/2)
 
     # Make a dataframe
     verticle <- data.frame(A,B,C,D,E,F)
@@ -40,7 +43,6 @@ hexagonPT_verticles <- function(x, y, r = NULL, l = NULL){
 
     return(verticle)
 }
-
 
 # Additional lines --------------------------------------------------------
 

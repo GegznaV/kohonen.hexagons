@@ -55,19 +55,24 @@ hex_neighbourhood_line_pos <- function(x, y, r = NULL, l = NULL, ...) {
 
         for(ii in 1:6){
             v <- verticles[ii:(ii+1)]
-            eval_(sprintf("tmp <- data.frame(cell = i," %++%
-                          " x1 = %s[1], y1 = %s[2],"    %++%
+            eval_(sprintf("tmp <- data.frame(cell = i,"   %++%
+                          " x1 = %s[1], y1 = %s[2],"      %++%
                           " x2 = %s[1], y2 = %s[2])",
                           v[1],v[1],v[2],v[2]))
 
             df <- rbind(df, tmp)
         }
     }
+
     # x_center, y_center - coordinates of neighbourhood line centers
     df <- dplyr::mutate(df, x_center = (x1+x2)/2, y_center = (y1+y2)/2)
 
     return(df)
 }
+
+
+# Additional lines --------------------------------------------------------
+
 # if (is.null(r)) r <- x %>% diff  %>% abs  %>% min/2         # 0.5
 #  if (is.null(l)) l <- y %>% diff  %>% abs  %>% max() - r/2   # 0.616
 #

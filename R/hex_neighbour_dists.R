@@ -43,12 +43,11 @@ hex_neighbour_dist <- function(X, method = "euclidean", ...){
     for (i in 2:nrow(nhbrdist)) {
         for (j in 1:(i - 1)) {
             if (!is.na(nhbrdist[i,j]))
-                nhbrdist[i,j] <- nhbrdist[j,i] <-dist(X$codes[c(i,j),], method = method, ...)
+                nhbrdist[i,j] <- nhbrdist[j,i] <- dist(X$codes[c(i,j),], method = method, ...)
 
             # nhbrdist[i,j] <- nhbrdist[j,i] <- dist(X$codes[c(i,j),])
         }
     }
-
 
     # [Piece of new code] ---------------------------------------------------
 
@@ -78,13 +77,13 @@ hex_neighbour_dist <- function(X, method = "euclidean", ...){
     # Indentify boundaries between neighbour cells and their coordinates
     # =========================================================================
 
-    # `line_pos` are boundaries
-    line_pos <- hex_neighbourhood_line_pos(X$grid$pts[,"x"], X$grid$pts[,"y"])  %>%
+    # `line_pos` are boundaries between heighbours
+
+    line_pos <- hex_neighbourhood_line_pos(X$grid$pts[,"x"], X$grid$pts[,"y"]) %>%
         dplyr::mutate(cell,
                       line_centers = interaction((x1+x2)/2,
                                                  round((y1+y2)/2, 7),
                                                  sep = "; "))
-
 
     # ddd - temporary dataframe
 
@@ -97,7 +96,9 @@ hex_neighbour_dist <- function(X, method = "euclidean", ...){
     # Split cell numbers to two variables
     ddd %<>%
         tidyr::separate(data, c("Cell_ID1", "Cell_ID2"),
-                        sep =",", extra = "merge", fill = "left")
+                        sep =",",
+                        extra = "merge",
+                        fill = "left")
 
     # Merge and process dataframes
     line_pos <- base::merge(ddd, line_pos)   %>%
@@ -106,17 +107,16 @@ hex_neighbour_dist <- function(X, method = "euclidean", ...){
         dplyr::arrange(Cell_ID1, Cell_ID2) %>%
         dplyr::select(-c(cell))
 
-    #  Remove duplicated
+    # Remove duplicated
     non_duplicate <- !duplicated(line_pos[,c("Cell_ID1", "Cell_ID2", "line_centers")])
     line_pos <- line_pos[non_duplicate,]
-
 
     # =========================================================================
     # Merge coordinates of boundaries and information about neighbour distances
     # =========================================================================
     neigh_dist <- base::merge(neigh_dist, line_pos, all=TRUE)
     neigh_dist$line_centers <- NULL
-    rownames(neigh_dist) <- NULL
+    rownames(neigh_dist)    <- NULL
 
     # Return result
     return(neigh_dist)

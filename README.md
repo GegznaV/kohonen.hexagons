@@ -23,5 +23,5 @@ Meaning of symbols in function descriptions:
 ------------------------------------------------------------------------
 
 <p align="right">
-File updated on <b>2016-05-11</b> with version of package <b>0.1.2</b>
+File updated on <b>2016-05-12</b> with version of package <b>0.1.3</b>
 </p>

@@ -17,6 +17,7 @@ library(kohonen.hexagons)
 library(kohonen)
 library(pander)
 ```
+
 ```{r options1, echo = FALSE, message = FALSE, warning = FALSE}
 optDEF <- knitr::opts_chunk$get()
 knitr::opts_chunk$set(comment = "#>",
@@ -64,6 +65,7 @@ Plot a map of hexagons.
 
 ```
 
+
 Function `hexagonPT_verticles`
 --------------------------------
 
@@ -89,12 +91,12 @@ text(verticles,labels = LETTERS[1:6], col = "blue")
 
 ```
 
+
 Function `hex_neighbourhood_line_pos`
 ----------------------------------
 ```{r hex_neighbourhood_line_pos}
 hex_neighbourhood_line_pos(x, y)  %>% head
 ```
-
 
 
 Function `hex_neighbour_dist`

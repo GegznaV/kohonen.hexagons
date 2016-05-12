@@ -40,9 +40,9 @@ hexagon_default_params(l = 1)
 data <- class::somgrid(8,6,"hexagonal")$pts
 hexagon_default_params(x = data[,"x"], y = data[,"y"])
 
-hexagon_default_params(x = data[,"x"], y = data[,"y"]*2) \%>\% pander
+hexagon_default_params(x = data[,"x"], y = data[,"y"]*2)
 
-hexagon_default_params(x = data[,"x"]*2, y = data[,"y"]) \%>\% pander
+hexagon_default_params(x = data[,"x"]*2, y = data[,"y"])
 
 }
 \author{

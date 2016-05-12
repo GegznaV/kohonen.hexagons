@@ -1,4 +1,6 @@
+#'
 #' [!] Calculate parameters for (regular) hexagon
+#'
 #'
 #' Function calculates parameters \code{l} and \code{r} for hexagon.
 #'
@@ -30,19 +32,23 @@
 #' data <- class::somgrid(8,6,"hexagonal")$pts
 #' hexagon_default_params(x = data[,"x"], y = data[,"y"])
 #'
-#' hexagon_default_params(x = data[,"x"], y = data[,"y"]*2) %>% pander
+#' hexagon_default_params(x = data[,"x"], y = data[,"y"]*2)
 #'
-#' hexagon_default_params(x = data[,"x"]*2, y = data[,"y"]) %>% pander
+#' hexagon_default_params(x = data[,"x"]*2, y = data[,"y"])
 #'
 #' @author Vilmantas Gegzna
 #'
-hexagon_default_params <- function(r= NULL,l= NULL,x = NULL,y= NULL){
+
+
+hexagon_default_params <- function(r = NULL, l = NULL, x = NULL, y = NULL){
+    # Default values r = 0.5, l = 0.616
 
     # If x values exist
-    if (!is.null(x)) {# 0.5
+    if (!is.null(x)) {
         if (length(x) <= 1) stop("Number of elements in `x` must be more than 1.")
         r <- x %>% diff  %>% abs  %>% min/2
     }
+
     # Get default r and l values
     cond <- c(is.null(r), is.null(l))
     if (all(cond == TRUE)) {r = .5;l = r / cos(pi/6)}
@@ -50,14 +56,15 @@ hexagon_default_params <- function(r= NULL,l= NULL,x = NULL,y= NULL){
     if ((cond[1] == TRUE  & cond[2]  == FALSE)){r = l * cos(pi/6)}
 
     # If y values exist
-    if (!is.null(y)) {# 0.616
+    if (!is.null(y)) {
         if (length(y) <= 1) stop("Number of elements in `y` must be more than 1.")
 
-        l <- y %>% diff  %>% abs  %>% max() * 2/3
+        # l <- y %>% diff %>% abs %>% max() * 2/3
 
-        # ATTENTION!!! Might be problem in this case, as it depends on `r`:
-        # l <- y %>% diff  %>% abs  %>% max() - r/sqrt(3)
-}
+        # ATTENTION!!! Might be problem in this case when `r` is large, as it depends on `r`:
+        l <- y %>% diff  %>% abs  %>% max() - r/sqrt(3)
+    }
+
     # Return result
     return(list(r = r, l = l))
 }
