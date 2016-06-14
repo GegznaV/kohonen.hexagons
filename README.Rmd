@@ -1,7 +1,5 @@
 ---
-output:
-  md_document:
-    variant: markdown_github
+output: github_document
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -14,22 +12,18 @@ knitr::opts_chunk$set(
 )
 ```
 
-[![CRAN version](http://www.r-pkg.org/badges/version/kohonen.hexagons)](http://cran.rstudio.com/web/packages/kohonen.hexagons/index.html)
-[![CRAN mirror downloads](http://cranlogs.r-pkg.org/badges/kohonen.hexagons)](http://cran.rstudio.com/web/packages/kohonen.hexagons/index.html)
-[![Issue Stats](http://issuestats.com/github/GegznaV/kohonen.hexagons/badge/pr?style=flat)](http://issuestats.com/github/GegznaV/kohonen.hexagons)
-[![Issue Stats](http://issuestats.com/github/GegznaV/kohonen.hexagons/badge/issue?style=flat)](http://issuestats.com/github/GegznaV/kohonen.hexagons)
-
-<!-- [![codecov.io](https://codecov.io/github/GegznaV/kohonen.hexagons/coverage.svg?branch=master)](https://codecov.io/github/GegznaV/kohonen.hexagons?branch=master) -->
+<!-- [![CRAN_version](http://www.r-pkg.org/badges/version/kohonen.hexagons)](https://cran.r-project.org/package=kohonen.hexagons) -->
+[![GitHub version](https://img.shields.io/badge/GitHub-v`r packageVersion("kohonen.hexagons")`-brightgreen.svg)](https://github.com/GegznaV/kohonen.hexagons)
 
 <!-- [![Travis-CI Build Status](https://travis-ci.org/GegznaV/kohonen.hexagons.png?branch=master)](https://travis-ci.org/GegznaV/kohonen.hexagons) -->
-
+<!-- [![codecov.io](https://codecov.io/github/GegznaV/kohonen.hexagons/coverage.svg?branch=master)](https://codecov.io/github/GegznaV/kohonen.hexagons?branch=master) -->
 
   
-Developement version of package `kohonen.hexagons` 
+Development version of package `kohonen.hexagons` 
 ==========================================
 
 
-**Package is under construction.**
+**The package is under construction.**
 
 Some functions may be changed significantly.
 

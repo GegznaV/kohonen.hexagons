@@ -1,12 +1,14 @@
+
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-[![CRAN version](http://www.r-pkg.org/badges/version/kohonen.hexagons)](http://cran.rstudio.com/web/packages/kohonen.hexagons/index.html) [![CRAN mirror downloads](http://cranlogs.r-pkg.org/badges/kohonen.hexagons)](http://cran.rstudio.com/web/packages/kohonen.hexagons/index.html) [![Issue Stats](http://issuestats.com/github/GegznaV/kohonen.hexagons/badge/pr?style=flat)](http://issuestats.com/github/GegznaV/kohonen.hexagons) [![Issue Stats](http://issuestats.com/github/GegznaV/kohonen.hexagons/badge/issue?style=flat)](http://issuestats.com/github/GegznaV/kohonen.hexagons)
+<!-- [![CRAN_version](http://www.r-pkg.org/badges/version/kohonen.hexagons)](https://cran.r-project.org/package=kohonen.hexagons) -->
+[![GitHub version](https://img.shields.io/badge/GitHub-v0.0.3-brightgreen.svg)](https://github.com/GegznaV/kohonen.hexagons)
 
-<!-- [![codecov.io](https://codecov.io/github/GegznaV/kohonen.hexagons/coverage.svg?branch=master)](https://codecov.io/github/GegznaV/kohonen.hexagons?branch=master) -->
 <!-- [![Travis-CI Build Status](https://travis-ci.org/GegznaV/kohonen.hexagons.png?branch=master)](https://travis-ci.org/GegznaV/kohonen.hexagons) -->
-Developement version of package `kohonen.hexagons`
-==================================================
+<!-- [![codecov.io](https://codecov.io/github/GegznaV/kohonen.hexagons/coverage.svg?branch=master)](https://codecov.io/github/GegznaV/kohonen.hexagons?branch=master) -->
+Development version of package `kohonen.hexagons`
+=================================================
 
-**Package is under construction.**
+**The package is under construction.**
 
 Some functions may be changed significantly.
 
@@ -23,5 +25,5 @@ Meaning of symbols in function descriptions:
 ------------------------------------------------------------------------
 
 <p align="right">
-File updated on <b>2016-05-12</b> with version of package <b>0.1.3</b>
+File updated on <b>2016-06-14</b> with version of package <b>0.0.3</b>
 </p>
